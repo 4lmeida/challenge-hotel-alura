@@ -1,6 +1,7 @@
 package controllers;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 
 import dao.HospedeDAO;
@@ -17,11 +18,26 @@ public class HospedeController {
 	}
 	
 	public void inserir(Hospede hospede) {
-		this.hospedeDAO.insertHospede(hospede);
+		this.hospedeDAO.salvar(hospede);
 	}
 	
 	public List<Hospede> buscarTodos() {
-		return this.hospedeDAO.buscar();
+		return this.hospedeDAO.listar();
 	}
+	
+	public List<Hospede> listarPorId(Long id) {
+		return this.hospedeDAO.listarPorId(id);
+	}
+	
+	public void atualizar(String  nome, String sobrenome, Date dataNascimento, String nascionalidade, String telefone, 
+			Long idReserva, Long id) {
+		this.hospedeDAO.atualizar(nome, sobrenome, dataNascimento, nascionalidade, telefone, idReserva, id);
+	}
+	
+	public void deletar(Long id ) {
+		this.hospedeDAO.deletar(id);
+	}
+	
+	
 	
 }

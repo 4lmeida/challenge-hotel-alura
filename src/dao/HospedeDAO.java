@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +19,7 @@ public class HospedeDAO {
 		this.connection = connection;
 	}
 
-	public void insertHospede(Hospede hospede) {
+	public void salvar(Hospede hospede) {
 
 		String sql = "INSERT INTO hospedes (nome, sobrenome, data_nascimento, nacionalidade, telefone, id_reserva) "
 				+ "VALUES (?, ?, ?, ?, ?, ?)";
@@ -44,7 +45,7 @@ public class HospedeDAO {
 		}
 	}
 
-	public List<Hospede> buscar() {
+	public List<Hospede> listar() {
 		List<Hospede> hospedes = new ArrayList<>();
 
 		String sql = "SELECT id, nome, sobrenome, data_nascimento, nacionalidade, telefone, id_reserva FROM hospedes";
@@ -60,6 +61,63 @@ public class HospedeDAO {
 		}
 
 		return hospedes;
+	}
+	
+	public List<Hospede> listarPorId(Long id) {
+		List<Hospede> hospedes = new ArrayList<>();
+
+		String sql = "SELECT id, nome, sobrenome, data_nascimento, nacionalidade, telefone, id_reserva FROM hospedes WHERE id = ?";
+
+		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+
+			pstm.setLong(1, id);
+			pstm.execute();
+
+			tranformaResultSetEmHospede(hospedes, pstm);
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return hospedes;
+	}
+	
+	public List<Hospede> atualizar(String nome, String sobrenome, Date dataNascimento, String nascionalidade, String telefone, 
+			Long idReserva, Long id) { 
+	
+		List<Hospede> hospedes = new ArrayList<>();
+
+		String sql = "UPDATE hospedes SET nome = ?,  sobrenome = ?, date__nascimento = ?, nascionalidade = ?, telefone = ?, "
+				+ "idReserva = id_reserva = ?, WHERE id = ?";
+
+		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+			pstm.setString(1, nome);
+			pstm.setString(2, sobrenome);
+			pstm.setDate(3, dataNascimento);
+			pstm.setString(4, nascionalidade);
+			pstm.setString(5, telefone);
+			pstm.setLong(6, idReserva);
+			pstm.setLong(7, id);
+			
+			pstm.execute();
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+
+		return hospedes;
+	}
+	
+	public void deletar(Long id) {
+		try(PreparedStatement pstm =  connection.prepareStatement("DELETE FROM hospedes WHERE id = ?")) {
+			
+			pstm.setLong(1, id);
+			pstm.execute();
+		}
+		catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private void tranformaResultSetEmHospede(List<Hospede> hospedes, PreparedStatement pstm) {
