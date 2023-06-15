@@ -1,6 +1,8 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,25 +62,16 @@ public class ReservaDAO {
 		return reservas;
 	}
 	
-	public Reserva buscarPorId(String id) {
-		Reserva reserva = new Reserva();
+	public List<Reserva> buscarPorId(Long id) {
+		List<Reserva> reserva = new ArrayList<>();
 		
 		String sql = "SELECT id, data_entrada, data_saida,  valor, forma_pagamento FROM reservas WHERE id = ?";
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)) {
-			pstm.setString(1, id);
+			pstm.setLong(1, id);
 			pstm.execute();
 			
-			try {
-				try (ResultSet rst = pstm.getResultSet()) {
-					while (rst.next()) {
-						reserva = new Reserva(rst.getLong(1), rst.getDate(3), rst.getDate(4),  rst.getBigDecimal(5), rst.getString(6));
-
-					}
-				}
-			} catch (SQLException e) {
-				throw new RuntimeException(e);
-			}
+			tranformaResultSetEmReserva(reserva, pstm);
 			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -88,6 +81,38 @@ public class ReservaDAO {
 		return reserva;
 	}
 
+
+
+	public void atrualizar(Date dataEntrada, Date dataSaida, BigDecimal valor, String formaPagamento, Long id) {
+		try(PreparedStatement pstm = connection
+				.prepareStatement("UPDATE reservas SET data_entrada = ?, data_saida = ?, valor = ?, forma_pagamento = ? WHERE id = ?")) {
+			
+			pstm.setDate(1, dataEntrada);
+			pstm.setDate(2, dataSaida);
+			pstm.setBigDecimal(3, valor);
+			pstm.setString(4, formaPagamento);
+			pstm.setLong(5, id);
+			pstm.execute();
+		}
+		catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+
+	public void deletar(Long id) {
+		try(PreparedStatement pstm = connection.prepareStatement("DELETE FROM reservas WHERE id = ? ")) {
+			
+			pstm.setLong(1, id);
+			pstm.execute();
+			
+		}
+		catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
 	private void tranformaResultSetEmReserva(List<Reserva> reservas, PreparedStatement pstm) {
 		
 		try(ResultSet rst = pstm.getResultSet()) {

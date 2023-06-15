@@ -1,6 +1,8 @@
 package controllers;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 
 import dao.ReservaDAO;
@@ -24,8 +26,18 @@ public class ReservasController {
 		return this.reservaDAO.buscar();
 	}
 	
-	public Reserva buscarReservaId(String id)  {
+	public List<Reserva> buscarReservaId(Long id)  {
 		return this.reservaDAO.buscarPorId(id);
+	}
+
+	public void atualizar(Date dataEntrada, Date dataSaida, BigDecimal valor, String formaPagamento, Long id) {
+		this.reservaDAO.atrualizar(dataEntrada, dataSaida, valor, formaPagamento, id);
+		
+	}
+
+	public void deletar(Long id) {
+		this.reservaDAO.deletar(id);
+		
 	}
 	
 }

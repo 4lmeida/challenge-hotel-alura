@@ -88,8 +88,8 @@ public class HospedeDAO {
 	
 		List<Hospede> hospedes = new ArrayList<>();
 
-		String sql = "UPDATE hospedes SET nome = ?,  sobrenome = ?, date__nascimento = ?, nascionalidade = ?, telefone = ?, "
-				+ "idReserva = id_reserva = ?, WHERE id = ?";
+		String sql = "UPDATE hospedes SET nome = ?,  sobrenome = ?, data_nascimento = ?, nacionalidade = ?, telefone = ?, "
+				+ "id_reserva = ? WHERE id = ?";
 
 		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 			pstm.setString(1, nome);
