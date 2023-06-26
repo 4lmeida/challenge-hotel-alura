@@ -83,7 +83,6 @@ public class MenuPrincipal extends JFrame {
 		lblCopyR.setFont(new Font("Roboto", Font.PLAIN, 16));
 		panel_1.add(lblCopyR);
 		
-		//Barra para controlar la ventana 
 		JPanel header = new JPanel();
 		header.setBounds(0, 0, 910, 36);
 		header.addMouseMotionListener(new MouseMotionAdapter() {
