@@ -25,8 +25,8 @@ public class HospedeController {
 		return this.hospedeDAO.listar();
 	}
 	
-	public List<Hospede> listarPorId(Long id) {
-		return this.hospedeDAO.listarPorId(id);
+	public List<Hospede> listarSobrenome(String sobrenome) {
+		return this.hospedeDAO.listarSobrenome(sobrenome);
 	}
 	
 	public void atualizar(String  nome, String sobrenome, Date dataNascimento, String nascionalidade, String telefone, 

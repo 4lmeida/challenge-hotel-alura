@@ -43,7 +43,7 @@ public class MenuPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public MenuPrincipal() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/imagenes/aH-40px.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/imagens/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 910, 537);
 		contentPane = new JPanel();
@@ -63,12 +63,12 @@ public class MenuPrincipal extends JFrame {
 		
 		JLabel imagenFondo = new JLabel("");
 		imagenFondo.setBounds(-50, 0, 732, 501);
-		imagenFondo.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/imagenes/menu-img.png")));
+		imagenFondo.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/imagens/menu-img.png")));
 		panel.add(imagenFondo);
 		
 		JLabel logo = new JLabel("");
 		logo.setBounds(722, 80, 150, 156);
-		logo.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/imagenes/aH-150px.png")));
+		logo.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/imagens/aH-150px.png")));
 		panel.add(logo);
 		
 		JPanel panel_1 = new JPanel();
@@ -103,7 +103,7 @@ public class MenuPrincipal extends JFrame {
 		header.setBackground(Color.WHITE);
 		panel.add(header);
 		
-		//Botón sair
+		//botão sair
 		JPanel btnexit = new JPanel();
 		btnexit.addMouseListener(new MouseAdapter() {
 			@Override
@@ -133,7 +133,7 @@ public class MenuPrincipal extends JFrame {
 		labelExit.setHorizontalAlignment(SwingConstants.CENTER);
 		labelExit.setFont(new Font("Roboto", Font.PLAIN, 18));
 		
-		//Botón Login
+		//botão Login
 		JPanel btnLogin = new JPanel(); 
 		btnLogin.setBounds(754, 300, 83, 70);
 		btnLogin.addMouseListener(new MouseAdapter() {
@@ -153,7 +153,7 @@ public class MenuPrincipal extends JFrame {
 		imageLogin.setBounds(0, 0, 80, 70);
 		btnLogin.add(imageLogin);
 		imageLogin.setHorizontalAlignment(SwingConstants.CENTER);
-		imageLogin.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/imagenes/login.png")));
+		imageLogin.setIcon(new ImageIcon(MenuPrincipal.class.getResource("/imagens/login.png")));
 		
 		JLabel lblTitulo = new JLabel("LOGIN");
 		lblTitulo.setBounds(754, 265, 83, 24);

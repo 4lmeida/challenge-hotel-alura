@@ -63,15 +63,16 @@ public class HospedeDAO {
 		return hospedes;
 	}
 	
-	public List<Hospede> listarPorId(Long id) {
+	public List<Hospede> listarSobrenome(String sobrenome) {
 		List<Hospede> hospedes = new ArrayList<>();
 
-		String sql = "SELECT id, nome, sobrenome, data_nascimento, nacionalidade, telefone, id_reserva FROM hospedes WHERE id = ?";
+		String sql = "SELECT id, nome, sobrenome, data_nascimento, nacionalidade, telefone, id_reserva FROM hospedes "
+				+ "WHERE sobrenome LIKE '%"+sobrenome+"%';";
 
 		try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 
-			pstm.setLong(1, id);
 			pstm.execute();
+
 
 			tranformaResultSetEmHospede(hospedes, pstm);
 			

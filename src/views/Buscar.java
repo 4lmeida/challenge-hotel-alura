@@ -73,7 +73,7 @@ public class Buscar extends JFrame {
 		this.controllerReservas = new ReservasController();
 		this.hospedeController = new HospedeController();
 		
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Buscar.class.getResource("/imagenes/lOGO-50PX.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Buscar.class.getResource("/imagens/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 571);
 		contentPane = new JPanel();
@@ -112,7 +112,7 @@ public class Buscar extends JFrame {
 		modeloReservas.addColumn("Valor");
 		modeloReservas.addColumn("Forma de Pago");
 		JScrollPane scroll_table = new JScrollPane(tbReservas);
-		panel.addTab("Reservas", new ImageIcon(Buscar.class.getResource("/imagenes/reservado.png")), scroll_table,
+		panel.addTab("Reservas", new ImageIcon(Buscar.class.getResource("/imagens/reservado.png")), scroll_table,
 				null);
 		scroll_table.setVisible(true);
 		prencherTabelaReserva();
@@ -129,13 +129,13 @@ public class Buscar extends JFrame {
 		modeloHospedes.addColumn("Telefone");
 		modeloHospedes.addColumn("Numero de Reserva");
 		JScrollPane scroll_tableHuespedes = new JScrollPane(tbHospedes);
-		panel.addTab("Huéspedes", new ImageIcon(Buscar.class.getResource("/imagenes/pessoas.png")),
+		panel.addTab("Hóspedes", new ImageIcon(Buscar.class.getResource("/imagens/pessoas.png")),
 				scroll_tableHuespedes, null);
 		scroll_tableHuespedes.setVisible(true);
 		prencherTabelaHospede();
 
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(Buscar.class.getResource("/imagenes/Ha-100px.png")));
+		lblNewLabel_2.setIcon(new ImageIcon(Buscar.class.getResource("/imagens/Ha-100px.png")));
 		lblNewLabel_2.setBounds(56, 51, 104, 107);
 		contentPane.add(lblNewLabel_2);
 
@@ -235,14 +235,17 @@ public class Buscar extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				limparTabela();
+				String reegex = "[0-9]+";
 				
 				if(txtBuscar.getText().equals("")) {
 					prencherTabelaHospede();
 					prencherTabelaReserva();
 				}
-				else {
+				else if(txtBuscar.getText().matches(reegex)) {
 					preenchertabelaReservasId();
-					preenchertabelaHospedesId();
+				}
+				else {
+					preenchertabelaHospedesSobrenome();
 				}
 
 			}
@@ -306,20 +309,8 @@ public class Buscar extends JFrame {
 				int filaReservas = tbReservas.getSelectedRow();
 				int filaHospedes = tbHospedes.getSelectedRow();
 				
-				if(filaReservas>= 0) {
-					reserva = tbReservas.getValueAt(filaReservas, 0).toString();
-					int confirmar  = JOptionPane.showConfirmDialog(null, "Deseja excluir os dados ?");
-					
-					if(confirmar  == JOptionPane.YES_OPTION) {
-						String valor = tbReservas.getValueAt(filaReservas, 0).toString();
-						controllerReservas.deletar(Long.valueOf(valor));
-						JOptionPane.showMessageDialog(contentPane, "Registro Excluído");
-						limparTabela();
-						prencherTabelaReserva();
-						prencherTabelaHospede();
-					}
-				}
-				else if(filaHospedes >= 0) {
+				
+				if(filaHospedes >= 0) {
 					hospede = tbHospedes.getValueAt(filaHospedes, 0).toString();
 					int comfirmarh = JOptionPane.showConfirmDialog(null, "Deseja excluir os dados ?");
 					
@@ -330,6 +321,19 @@ public class Buscar extends JFrame {
 						limparTabela();
 						prencherTabelaHospede();
 						prencherTabelaReserva();
+					}
+				}			
+				else if(filaReservas >= 0) {
+					reserva = tbReservas.getValueAt(filaReservas, 0).toString();
+					int confirmar  = JOptionPane.showConfirmDialog(null, "Deseja excluir os dados ?");
+					
+					if(confirmar  == JOptionPane.YES_OPTION) {
+						String valor = tbReservas.getValueAt(filaReservas, 0).toString();
+						controllerReservas.deletar(Long.valueOf(valor));
+						JOptionPane.showMessageDialog(contentPane, "Registro Excluído");
+						limparTabela();
+						prencherTabelaReserva();
+						prencherTabelaHospede();
 					}
 				}
 				else {
@@ -371,12 +375,12 @@ public class Buscar extends JFrame {
 		return this.hospedeController.buscarTodos();
 	}
 	
-	private List<Hospede> buscarHospedesId() {
-		return this.hospedeController.listarPorId(Long.valueOf(txtBuscar.getText()));
+	private List<Hospede> buscarHospedesSobrenome() {
+		return this.hospedeController.listarSobrenome(txtBuscar.getText());
 	}
 	
-	private List<Reserva> buscarReservasId() {		
-		return this.controllerReservas.buscarReservaId(Long.valueOf(txtBuscar.getText()));
+	private List<Reserva> buscarReservasId() {
+		return this.controllerReservas.buscarReservaId(Long.parseLong(txtBuscar.getText()));
 	}
 	
 	private void limparTabela() {
@@ -415,11 +419,11 @@ public class Buscar extends JFrame {
 		}
 	}
 	
-	private void preenchertabelaHospedesId() {
-		List<Hospede> hospedesLista = buscarHospedesId();
+	private void preenchertabelaHospedesSobrenome() {
+		List<Hospede> hospedesLista = buscarHospedesSobrenome();
 		try {
 			for (Hospede hospede : hospedesLista) {
-				modeloHospedes.addRow(new Object[] {hospede.getId(), hospede.getNome(), hospede.getSobrenome(), hospede.getDataNascimento(), hospede.getDataNascimento(), 
+				modeloHospedes.addRow(new Object[] {hospede.getId(), hospede.getNome(), hospede.getSobrenome(), hospede.getDataNascimento(), hospede.getNacionalidade(), 
 						hospede.getTelefone(), hospede.getIdReserva()});
 			}
 		}

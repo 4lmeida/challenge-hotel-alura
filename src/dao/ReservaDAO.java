@@ -65,7 +65,7 @@ public class ReservaDAO {
 	public List<Reserva> buscarPorId(Long id) {
 		List<Reserva> reserva = new ArrayList<>();
 		
-		String sql = "SELECT id, data_entrada, data_saida,  valor, forma_pagamento FROM reservas WHERE id = ?";
+		String sql = "SELECT id, data_entrada, data_saida,  valor, forma_pagamento FROM reservas WHERE id = ?;";
 		
 		try(PreparedStatement pstm = connection.prepareStatement(sql)) {
 			pstm.setLong(1, id);

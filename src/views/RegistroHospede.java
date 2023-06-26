@@ -62,12 +62,13 @@ public class RegistroHospede extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	public RegistroHospede(Long id) {
 		this();
 		controller = new HospedeController();
 
 		setIconImage(
-				Toolkit.getDefaultToolkit().getImage(RegistroHospede.class.getResource("/imagenes/lOGO-50PX.png")));
+				Toolkit.getDefaultToolkit().getImage(RegistroHospede.class.getResource("/imagens/lOGO-50PX.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 910, 634);
 		contentPane = new JPanel();
@@ -184,7 +185,7 @@ public class RegistroHospede extends JFrame {
 		txtDataN = new JDateChooser();
 		txtDataN.setBounds(560, 278, 285, 36);
 		txtDataN.getCalendarButton()
-				.setIcon(new ImageIcon(RegistroHospede.class.getResource("/imagenes/icon-reservas.png")));
+				.setIcon(new ImageIcon(RegistroHospede.class.getResource("/imagens/icon-reservas.png")));
 		txtDataN.getCalendarButton().setBackground(SystemColor.textHighlight);
 		txtDataN.setDateFormatString("yyyy-MM-dd");
 		contentPane.add(txtDataN);
@@ -208,7 +209,7 @@ public class RegistroHospede extends JFrame {
 				"húngaro", "iemenita", "cookiano", "marshallês", "salomonense", "indiano", "indonésio", "iraniano",
 				"iraquiano", "irlandês", "islandês", "34", "jamaicano", "japonês", "jordaniano", "kiribatiano",
 				"kuwaitiano", "laosiano", "lesotiano", "letão", "libanês", "liberiano", "líbio", "liechtensteiniano",
-				"lituano", "luxemburguês", "macedônio", "madagascarense", "malásio37", "malawiano", "maldivo",
+				"lituano", "luxemburguês", "macedônio", "madagascarense", "malásio", "malawiano", "maldivo",
 				"maliano", "maltês", "marroquino", "mauriciano", "mauritano", "mexicano", "myanmarense", "micronésio",
 				"moçambicano", "moldovo", "monegasco", "mongol", "montenegrino", "namibiano", "nauruano", "nepalês",
 				"nicaraguense", "nigerino", "nigeriano", "niuiano", "norueguês", "neozelandês", "omani", "neerlandês",
@@ -263,7 +264,7 @@ public class RegistroHospede extends JFrame {
 		JLabel lblTitulo = new JLabel("REGISTRO HÓSPEDE");
 		lblTitulo.setBounds(606, 55, 234, 42);
 		lblTitulo.setForeground(new Color(12, 138, 199));
-		lblTitulo.setFont(new Font("Roboto Black", Font.PLAIN, 23));
+		lblTitulo.setFont(new Font("Roboto Black", Font.PLAIN, 18));
 		contentPane.add(lblTitulo);
 
 		JLabel lblNumeroReserva = new JLabel("NÚMERO DE RESERVA");
@@ -355,12 +356,12 @@ public class RegistroHospede extends JFrame {
 		JLabel imageFundo = new JLabel("");
 		imageFundo.setBounds(0, 121, 479, 502);
 		panel.add(imageFundo);
-		imageFundo.setIcon(new ImageIcon(RegistroHospede.class.getResource("/imagenes/registro.png")));
+		imageFundo.setIcon(new ImageIcon(RegistroHospede.class.getResource("/imagens/registro.png")));
 
 		JLabel logo = new JLabel("");
 		logo.setBounds(194, 39, 104, 107);
 		panel.add(logo);
-		logo.setIcon(new ImageIcon(RegistroHospede.class.getResource("/imagenes/Ha-100px.png")));
+		logo.setIcon(new ImageIcon(RegistroHospede.class.getResource("/imagens/Ha-100px.png")));
 	}
 	
 	public RegistroHospede() {

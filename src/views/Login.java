@@ -75,7 +75,7 @@ public class Login extends JFrame {
 		JLabel imgHotel = new JLabel("");
 		imgHotel.setBounds(0, 0, 304, 538);
 		panel_1.add(imgHotel);
-		imgHotel.setIcon(new ImageIcon(Login.class.getResource("/imagenes/img-hotel-login-.png")));
+		imgHotel.setIcon(new ImageIcon(Login.class.getResource("/imagens/img-hotel-login-.png")));
 
 		JPanel btnexit = new JPanel();
 		btnexit.setBounds(251, 0, 53, 36);
@@ -212,7 +212,7 @@ public class Login extends JFrame {
 
 		JLabel logo = new JLabel("");
 		logo.setHorizontalAlignment(SwingConstants.CENTER);
-		logo.setIcon(new ImageIcon(Login.class.getResource("/imagenes/lOGO-50PX.png")));
+		logo.setIcon(new ImageIcon(Login.class.getResource("/imagens/lOGO-50PX.png")));
 		logo.setBounds(65, 65, 48, 59);
 		panel.add(logo);
 
